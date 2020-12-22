@@ -1,4 +1,4 @@
-# Projeto_SE
+# Project of Embedded Systems
 
 ## A project for class Embedded Systems wich consist in a Smart City with a smart crosswalk, smart parking, smart lights and a weather station.
 
