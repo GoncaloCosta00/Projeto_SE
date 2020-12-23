@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Projeto de SE</title>
+</head>
+
+<body>
+    <p>This is my page</p>
+    {% if teste %}
+    <ul>
+        {% for dados_dht11 in teste %}
+        <li>Estava {{ dados_dht11.temperatura }}ºC e {{dados_dht11.humidade}}% de humidade em {{dados_dht11.data}}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Não existem dados para apresentar.</p>
+    {% endif %}
+</body>
+
+</html>
