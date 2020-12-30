@@ -25,14 +25,19 @@ SECRET_KEY = 'dmqcp6oq_1anfo_jwksu8d5b@yhr0086r0uy++2-0dls=nqyiw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+    'localhost',
+    '127.0.0.1',
+    ]
 
+APPEND_SLASH=False
 
 # Application definition
 
 INSTALLED_APPS = [
     'django_se_pagina.apps.DjangoSePaginaConfig',
-    'django.contrib.admin',
+    #'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -43,6 +48,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    #'cookieless.middleware.CookielessSessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -68,6 +74,16 @@ TEMPLATES = [
     },
 ]
 
+COOKIELESS = {}
+COOKIELESS['REWRITE'] = True
+COOKIELESS['USE_GET'] = True
+COOKIELESS['CLIENT_ID'] = True
+COOKIELESS['HOSTS'] = ['localhost', ]
+COOKIELESS['NO_COOKIE_PERSIST'] = True
+COOKIELESS['URL_SPECIFIC'] = True
+COOKIELESS['DELETE_COOKIES'] = False
+TESTING = False
+
 WSGI_APPLICATION = 'django_se.wsgi.application'
 
 
@@ -84,8 +100,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

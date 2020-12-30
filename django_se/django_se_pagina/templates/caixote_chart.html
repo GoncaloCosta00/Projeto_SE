@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Projeto de SE</title>
+</head>
+
+<body>
+    <div id="container" style="width: 75%;">
+        <canvas id="pie-chart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+        var config = {
+            type: 'line',
+            data: {
+                datasets: [
+                    {
+                        data: {{ utilizacao| safe }},
+                        backgroundColor: "#00000000",
+                        borderColor: "#FF0000",
+                        label: "Utilização",
+                    },
+                ],
+                labels: {{ datas | safe }}
+            },
+            options: {
+                responsive: true
+            }
+        };
+    
+        window.onload = function() {
+          var ctx = document.getElementById('pie-chart').getContext('2d');
+          window.DHT11Chart = new Chart(ctx, config);
+        };
+        
+    </script>
+</body>
+
+</html>

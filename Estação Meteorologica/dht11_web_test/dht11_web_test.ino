@@ -127,7 +127,8 @@ void loop()
 
   delay(1500);
 
-  if (client.connect(server, 80))  //   "184.106.153.149" or api.thingspeak.com
+  //if (client.connect(server, 80))  //   "184.106.153.149" or api.thingspeak.com
+  if (client.connect("localhost", 8000)) //servidor local crido no django
   {
     /*
         String postStr = apiKey;
@@ -139,11 +140,13 @@ void loop()
 
     /*String postStr = "&api_key=" + apiKey + "&field1=" + String(t) + "&field2=" + String(h) + "\r\n\r\n";
     */
-    String postStr = "&api_key=" + apiKey + "&field1=" + String(t) + "&field2=" + String(h) + "&field3=" + String(percentagem_utilizacao) + "&field4=" + String(CO) + "&field5=" + String(CO2) + "&field6=" + String(Alcohol) + "&field7=" + String(NH4) + "\r\n";
+    String postStr = "&temperatura=" + String(t) + "&humidade=" + String(h) + "&co=" + String(CO) + "&alcohol=" + String(Alcohol) + "&co2=" + String(CO2) + "&nh4=" + String(NH4) + "&perc_utilizacao=" + String(percentagem_utilizacao) + "\r\n";
+    //String postStr = "&api_key=" + apiKey + "&field1=" + String(t) + "&field2=" + String(h) + "&field3=" + String(percentagem_utilizacao) + "&field4=" + String(CO) + "&field5=" + String(CO2) + "&field6=" + String(Alcohol) + "&field7=" + String(NH4) + "\r\n";
 
     client.print("POST /update HTTP/1.1\n");
     client.print("Host: ");
-    client.print(server);
+    //client.print(server);
+    client.print("localhost/save_info/");
     client.print("\n");
     client.print("Connection: close\n");
     client.print("THINGSPEAKAPIKEY: " + apiKey + "\n");
