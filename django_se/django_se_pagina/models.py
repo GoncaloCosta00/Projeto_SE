@@ -21,7 +21,9 @@ class Dht11(models.Model):
     temperatura = models.FloatField(blank=True, null=True)
     humidade = models.FloatField(blank=True, null=True)
     data = models.DateTimeField(auto_now=True, null=True)
-    id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True) 
+    #autofield -> identity
+    #auto_now coloca a hora atual como default
 
     class Meta:
         #managed = False

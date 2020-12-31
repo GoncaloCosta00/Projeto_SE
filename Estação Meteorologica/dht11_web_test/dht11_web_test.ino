@@ -128,7 +128,7 @@ void loop()
   delay(1500);
 
   //if (client.connect(server, 80))  //   "184.106.153.149" or api.thingspeak.com
-  if (client.connect("localhost", 8000)) //servidor local crido no django
+  if (client.connect("192.168.1.67", 8000)) //servidor local crido no django
   {
     /*
         String postStr = apiKey;
@@ -146,7 +146,7 @@ void loop()
     client.print("POST /update HTTP/1.1\n");
     client.print("Host: ");
     //client.print(server);
-    client.print("localhost/save_info/");
+    client.print("192.168.1.67:8000/save_info/");
     client.print("\n");
     client.print("Connection: close\n");
     client.print("THINGSPEAKAPIKEY: " + apiKey + "\n");
