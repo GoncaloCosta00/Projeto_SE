@@ -11,8 +11,8 @@ String apiKey = "67SVCFG6UDI7VGIJ";     //  Enter your Write API key from ThingS
 const char *ssid =  "MEO-COSTA";     // replace with your wifi ssid and wpa2 key
 const char *pass =  "c4cddf1f7d";
 //const char* server = "api.thingspeak.com";
-const char* server = "192.168.1.22"; //ip atual da maquina servidor
-//py manage.py runserver 192.168.1.22:80  comando para dar boot no django
+const char* server = "192.168.1.67"; //ip atual da maquina servidor
+//py manage.py runserver 192.168.1.67:80  comando para dar boot no django
 
 /*SENSOR MQ-135*/
 #define placa "esp8266"
