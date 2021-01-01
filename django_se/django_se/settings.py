@@ -33,7 +33,10 @@ ALLOWED_HOSTS = [
     '*',
     ]
 
-ALLOWED_CIDR_NETS = ['192.168.1.0/24']
+ALLOWED_CIDR_NETS = [
+    '192.168.1.0/24',
+    '192.168.0.0/24',
+    ]
 
 APPEND_SLASH=False
 
@@ -53,7 +56,6 @@ MIDDLEWARE = [
     'allow_cidr.middleware.AllowCIDRMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    #'cookieless.middleware.CookielessSessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -78,16 +80,6 @@ TEMPLATES = [
         },
     },
 ]
-
-COOKIELESS = {}
-COOKIELESS['REWRITE'] = True
-COOKIELESS['USE_GET'] = True
-COOKIELESS['CLIENT_ID'] = True
-COOKIELESS['HOSTS'] = ['localhost', ]
-COOKIELESS['NO_COOKIE_PERSIST'] = True
-COOKIELESS['URL_SPECIFIC'] = True
-COOKIELESS['DELETE_COOKIES'] = False
-TESTING = False
 
 WSGI_APPLICATION = 'django_se.wsgi.application'
 

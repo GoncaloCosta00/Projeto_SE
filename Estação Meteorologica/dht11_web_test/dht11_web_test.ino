@@ -10,7 +10,9 @@ String apiKey = "67SVCFG6UDI7VGIJ";     //  Enter your Write API key from ThingS
 
 const char *ssid =  "MEO-COSTA";     // replace with your wifi ssid and wpa2 key
 const char *pass =  "c4cddf1f7d";
-const char* server = "api.thingspeak.com";
+//const char* server = "api.thingspeak.com";
+const char* server = "192.168.1.22"; //ip atual da maquina servidor
+//py manage.py runserver 192.168.1.22:80  comando para dar boot no django
 
 /*SENSOR MQ-135*/
 #define placa "esp8266"
@@ -127,8 +129,7 @@ void loop()
 
   delay(1500);
 
-  //if (client.connect(server, 80))  //   "184.106.153.149" or api.thingspeak.com
-  if (client.connect("192.168.1.67", 8000)) //servidor local crido no django
+  if (client.connect(server, 80))  //   "184.106.153.149" or api.thingspeak.com
   {
     /*
         String postStr = apiKey;
@@ -145,11 +146,11 @@ void loop()
 
     client.print("POST /update HTTP/1.1\n");
     client.print("Host: ");
-    //client.print(server);
-    client.print("192.168.1.67:8000/save_info/");
+    client.print(server);
+    client.print("/save_info"); //servidor django
     client.print("\n");
     client.print("Connection: close\n");
-    client.print("THINGSPEAKAPIKEY: " + apiKey + "\n");
+    //client.print("THINGSPEAKAPIKEY: " + apiKey + "\n");
     client.print("Content-Type: application/x-www-form-urlencoded\n");
     client.print("Content-Length: ");
     client.print(postStr.length());
