@@ -144,10 +144,10 @@ void loop()
     String postStr = "&temperatura=" + String(t) + "&humidade=" + String(h) + "&co=" + String(CO) + "&alcohol=" + String(Alcohol) + "&co2=" + String(CO2) + "&nh4=" + String(NH4) + "&perc_utilizacao=" + String(percentagem_utilizacao) + "\r\n";
     //String postStr = "&api_key=" + apiKey + "&field1=" + String(t) + "&field2=" + String(h) + "&field3=" + String(percentagem_utilizacao) + "&field4=" + String(CO) + "&field5=" + String(CO2) + "&field6=" + String(Alcohol) + "&field7=" + String(NH4) + "\r\n";
 
-    client.print("POST /update HTTP/1.1\n");
+    //client.print("POST /update HTTP/1.1\n");
+    client.print("POST /save_info HTTP/1.1\n"); //servidor django
     client.print("Host: ");
     client.print(server);
-    client.print("/save_info"); //servidor django
     client.print("\n");
     client.print("Connection: close\n");
     //client.print("THINGSPEAKAPIKEY: " + apiKey + "\n");
