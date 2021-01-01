@@ -26,8 +26,7 @@ def dht11_chart(request):
     temperatura = []
     humidade = []
 
-    last_month = datetime.now() - timedelta(days=15)
-    queryset = Dht11.objects.filter(data__gte=last_month).order_by('data')
+    queryset = Dht11.objects.order_by('data')
     for dados in queryset:
         datas.append(dados.data.strftime("%d/%m/%Y %H:%M:%S"))
         humidade.append(dados.humidade)
@@ -50,7 +49,7 @@ def mq135_chart(request):
     nh4 = []
 
     last_month = datetime.now() - timedelta(days=15)
-    queryset = Mq135.objects.filter(data__gte=last_month).order_by('data')
+    queryset = Mq135.objects.filter(post_date__date=date.today()).order_by('data')
     for dados in queryset:
         datas.append(dados.data.strftime("%d/%m/%Y %H:%M:%S"))
         co.append(dados.co)
@@ -73,8 +72,7 @@ def caixote_chart(request):
     datas = []
     utilizacao = []
 
-    last_month = datetime.now() - timedelta(days=15)
-    queryset = Caixote.objects.filter(data__gte=last_month).order_by('data')
+    queryset = Caixote.objects.order_by('data')
     for dados in queryset:
         datas.append(dados.data.strftime("%d/%m/%Y %H:%M:%S"))
         utilizacao.append(dados.perc_utilizacao)
