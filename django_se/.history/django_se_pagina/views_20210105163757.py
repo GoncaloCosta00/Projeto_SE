@@ -53,14 +53,14 @@ def index(request):
     template = loader.get_template('index.html')
     context = {
         'datas': datas,
-        'temperatura': temperatura,
-        'humidade': humidade,
-        'datas2': datas2,
         'co': co,
         'co2': co2,
         'alcohol': alcohol,
         'nh4': nh4,
-        'datas3': datas3,
+        'datas2': datas2,
+        'temperatura': temperatura,
+        'humidade': humidade,
+         'datas3': datas3,
         'utilizacao': utilizacao,
     }    
     return HttpResponse(template.render(context,request))

@@ -66,11 +66,11 @@
                     <canvas id="pie-chart3"></canvas>
                 </div>
             </div>
-            <!-- <div class="div_teste">
+            <div class="div_teste">
                 <div id="container4" style="width: 75%;">
                     <canvas id="pie-chart4"></canvas>
                 </div>
-            </div> -->
+            </div>
         </div>
     </main>
 
@@ -100,68 +100,10 @@
                 responsive: true
             }
         };
-        var config2 = {
-            type: 'line',
-            data: {
-                datasets: [
-                    {
-                        data: {{ co| safe }},
-                        backgroundColor: "#00000000",
-                        borderColor: "#FF0000",
-                        label: "CO",
-                    },
-                    {
-                        data: {{ co2| safe }},
-                        backgroundColor: "#00000000",
-                        borderColor: "#ff3399",
-                        label: "CO2",
-                    },
-                    {
-                        data: {{ nh4| safe }},
-                        backgroundColor: "#00000000",
-                        borderColor: "#00ff00",
-                        label: "NH4",
-                    },
-                    {
-                        data: {{ alcohol| safe }},
-                        backgroundColor: "#00000000",
-                        borderColor: "#0000FF",
-                        label: "Alcohol",
-                    },
-                ],
-                labels: {{ datas2 | safe }}
-            },
-            options: {
-                responsive: true
-            }
-        };
-        var config3 = {
-            type: 'line',
-            data: {
-                datasets: [
-                    {
-                        data: {{ utilizacao| safe }},
-                        backgroundColor: "#00000000",
-                        borderColor: "#FF0000",
-                        label: "Utilização",
-                    },
-                ],
-                labels: {{ datas3 | safe }}
-            },
-            options: {
-                responsive: true
-            }
-        };
-
+    
         window.onload = function() {
-          var ctx = document.getElementById('pie-chart').getContext('2d');
+          var ctx = document.getElementById('pie-chart1').getContext('2d');
           window.DHT11Chart = new Chart(ctx, config);
-          
-          var ctx2 = document.getElementById('pie-chart2').getContext('2d');
-          window.MQ135Chart = new Chart(ctx2, config2);
-          
-          var ctx3 = document.getElementById('pie-chart3').getContext('2d');
-          window.CaixoteChart = new Chart(ctx3, config3);
         };
         
     </script>
