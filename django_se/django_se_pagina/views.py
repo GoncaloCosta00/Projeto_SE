@@ -31,13 +31,13 @@ def index(request):
     utilizacao = []
 
     last_month = datetime.now() - timedelta(days=15)
-    queryset = Dht11.objects.filter(data__gte=last_month).order_by('data')
+    queryset = Dht11.objects.filter(data__gte=last_month).order_by('data')[:20]
     for dados in queryset:
         datas.append(dados.data.strftime("%d/%m/%Y %H:%M:%S"))
         humidade.append(dados.humidade)
         temperatura.append(dados.temperatura)
 
-    queryset = Mq135.objects.filter(data__gte=last_month).order_by('data')
+    queryset = Mq135.objects.filter(data__gte=last_month).order_by('data')[:20]
     for dados in queryset:
         datas2.append(dados.data.strftime("%d/%m/%Y %H:%M:%S"))
         co.append(dados.co)
@@ -45,7 +45,7 @@ def index(request):
         alcohol.append(dados.alcohol)
         nh4.append(dados.nh4)
 
-    queryset = Caixote.objects.filter(data__gte=last_month).order_by('data')
+    queryset = Caixote.objects.filter(data__gte=last_month).order_by('data')[:20]
     for dados in queryset:
         datas3.append(dados.data.strftime("%d/%m/%Y %H:%M:%S"))
         utilizacao.append(dados.perc_utilizacao)
@@ -73,7 +73,7 @@ def dht11_chart(request):
     humidade = []
 
     last_month = datetime.now() - timedelta(days=15)
-    queryset = Dht11.objects.filter(data__gte=last_month).order_by('data')
+    queryset = Dht11.objects.filter(data__gte=last_month).order_by('data')[:30]
     for dados in queryset:
         datas.append(dados.data.strftime("%d/%m/%Y %H:%M:%S"))
         humidade.append(dados.humidade)
@@ -96,7 +96,7 @@ def mq135_chart(request):
     nh4 = []
 
     last_month = datetime.now() - timedelta(days=15)
-    queryset = Mq135.objects.filter(data__gte=last_month).order_by('data')
+    queryset = Mq135.objects.filter(data__gte=last_month).order_by('data')[:30]
     for dados in queryset:
         datas.append(dados.data.strftime("%d/%m/%Y %H:%M:%S"))
         co.append(dados.co)
@@ -120,7 +120,7 @@ def caixote_chart(request):
     utilizacao = []
 
     last_month = datetime.now() - timedelta(days=15)
-    queryset = Caixote.objects.filter(data__gte=last_month).order_by('data')
+    queryset = Caixote.objects.filter(data__gte=last_month).order_by('data')[:30]
     for dados in queryset:
         datas.append(dados.data.strftime("%d/%m/%Y %H:%M:%S"))
         utilizacao.append(dados.perc_utilizacao)
