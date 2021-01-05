@@ -4,19 +4,110 @@
 <head>
     <meta charset="utf-8">
     <title>Projeto de SE</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <p>This is my page</p>
-    {% if teste %}
-    <ul>
-        {% for dados_dht11 in teste %}
-        <li>Estava {{ dados_dht11.temperatura }}ºC e {{dados_dht11.humidade}}% de humidade em {{dados_dht11.data}}</li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>Não existem dados para apresentar.</p>
-    {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Projeto_SE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/mq135">MQ135 </a>
+                <a class="nav-item nav-link" href="/dht11">DHT11 <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="/caixote">Caixote do Lixo</a>
+            </div>
+        </div>
+    </nav>
+
+    <style>
+        .div_1{
+            display: flex;
+            
+        }
+        .div_2{
+            display: flex;
+           
+        }
+    
+    </style>
+    <main class="div_total">
+        <div class="div_1">
+            <div class="div_teste">
+                <div id="container1" style="width: 75%;">
+                    <canvas id="pie-chart"></canvas>
+                </div>
+            </div>
+            <div class="div_teste">
+                <div id="container2" style="width: 75%;">
+                    <canvas id="pie-chart2"></canvas>
+                </div>
+            </div>
+           
+            
+        </div>
+        <div class="div_2">
+            <div class="div_teste">
+                <div id="container3" style="width: 75%;">
+                    <canvas id="pie-chart3"></canvas>
+                </div>
+            </div>
+            <div class="div_teste">
+                <div id="container4" style="width: 75%;">
+                    <canvas id="pie-chart4"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <script>
+        var config = {
+            type: 'line',
+            data: {
+                datasets: [
+                    {
+                        data: {{ temperatura| safe }},
+                        backgroundColor: "#00000000",
+                        borderColor: "#FF0000",
+                        label: "Temperatura",
+                    },
+                    {
+                        data: {{ humidade| safe }},
+                        backgroundColor: "#00000000",
+                        borderColor: "#0000FF",
+                        label: "Humidade",
+                    },
+                ],
+                labels: {{ datas | safe }}
+            },
+            options: {
+                responsive: true
+            }
+        };
+    
+        window.onload = function() {
+          var ctx = document.getElementById('pie-chart1').getContext('2d');
+          window.DHT11Chart = new Chart(ctx, config);
+        };
+        
+    </script>
+
 </body>
 
 </html>

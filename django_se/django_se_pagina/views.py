@@ -10,17 +10,63 @@ from django.views.decorators.csrf import csrf_exempt #ignorar os tokens, etc
 from django.core.serializers.json import DjangoJSONEncoder
 from json import dumps as json_dumps
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
 
 def index2(request):
-    dht11 = Dht11.objects.order_by('-data')[:5]
+    
+    template = loader.get_template('index.html')
+  
+    return HttpResponse(template.render({},request))
+
+
+def index(request):
+    datas = []
+    temperatura = []
+    humidade = []
+    datas = []
+    co = []
+    co2 = []
+    alcohol = []
+    nh4 = []
+    datas = []
+    utilizacao = []
+
+    last_month = datetime.now() - timedelta(days=15)
+    queryset = Dht11.objects.filter(data__gte=last_month).order_by('data')
+    for dados in queryset:
+        datas.append(dados.data.strftime("%d/%m/%Y %H:%M:%S"))
+        humidade.append(dados.humidade)
+        temperatura.append(dados.temperatura)
+
+    queryset = Mq135.objects.filter(data__gte=last_month).order_by('data')
+    for dados in queryset:
+        datas.append(dados.data.strftime("%d/%m/%Y %H:%M:%S"))
+        co.append(dados.co)
+        co2.append(dados.co2)
+        alcohol.append(dados.alcohol)
+        nh4.append(dados.nh4)
+
+    queryset = Caixote.objects.filter(data__gte=last_month).order_by('data')
+    for dados in queryset:
+        datas.append(dados.data.strftime("%d/%m/%Y %H:%M:%S"))
+        utilizacao.append(dados.perc_utilizacao)
+ 
     template = loader.get_template('index.html')
     context = {
-        'teste': dht11,
-    }
-    return HttpResponse(template.render(context, request))
-    
+        'datas': datas,
+        'co': co,
+        'co2': co2,
+        'alcohol': alcohol,
+        'nh4': nh4,
+        'datas': datas,
+        'temperatura': temperatura,
+        'humidade': humidade,
+         'datas': datas,
+        'utilizacao': utilizacao,
+    }    
+    return HttpResponse(template.render(context,request))
+
+
+
 def dht11_chart(request):
     datas = []
     temperatura = []
