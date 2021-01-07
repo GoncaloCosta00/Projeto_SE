@@ -8,10 +8,10 @@
 
 String apiKey = "67SVCFG6UDI7VGIJ";     //  Enter your Write API key from ThingSpeak
 
-const char *ssid =  "MEO-COSTA";     // replace with your wifi ssid and wpa2 key
-const char *pass =  "c4cddf1f7d";
+const char *ssid =  "labmicro";     // replace with your wifi ssid and wpa2 key
+const char *pass =  "microwifi";
 //const char* server = "api.thingspeak.com";
-const char* server = "192.168.1.67"; //ip atual da maquina servidor
+const char* server = "192.168.1.76"; //ip atual da maquina servidor
 //py manage.py runserver 192.168.1.67:80  comando para dar boot no django
 
 /*SENSOR MQ-135*/
@@ -25,6 +25,7 @@ const char* server = "192.168.1.67"; //ip atual da maquina servidor
 
 #define DHTPIN 0          //pin where the dht11 is connected
 
+
 DHT dht(DHTPIN, DHT11);
 int pinTring = 4;
 int pinEcho = 5;
@@ -35,20 +36,24 @@ WiFiClient client;
 
 MQUnifiedsensor MQ135(placa, Voltage_Resolution, ADC_Bit_Resolution, pin, type);
 
+
+
 void setup()
 {
   Serial.begin(115200);
   delay(10);
+  
   dht.begin();
   pinMode(pinTring, OUTPUT);
   pinMode(pinEcho, INPUT);
+
   Serial.println("Connecting to ");
   Serial.println(ssid);
 
 
   WiFi.begin(ssid, pass);
 
-  while (WiFi.status() != WL_CONNECTED)
+  while (WiFi.status  () != WL_CONNECTED)
   {
     delay(500);
     Serial.print(".");
@@ -56,6 +61,7 @@ void setup()
   Serial.println("");
   Serial.println("WiFi connected");
 
+ 
   //sensor MQ-135
   MQ135.setRegressionMethod(1);
   MQ135.init();
@@ -141,21 +147,23 @@ void loop()
 
     /*String postStr = "&api_key=" + apiKey + "&field1=" + String(t) + "&field2=" + String(h) + "\r\n\r\n";
     */
-    String postStr = "&temperatura=" + String(t) + "&humidade=" + String(h) + "&co=" + String(CO) + "&alcohol=" + String(Alcohol) + "&co2=" + String(CO2) + "&nh4=" + String(NH4) + "&perc_utilizacao=" + String(percentagem_utilizacao) + "\r\n";
+    String postStr = "?temperatura=" + String(t) + "&humidade=" + String(h) + "&co=" + String(CO) + "&alcohol=" + String(Alcohol) + "&co2=" + String(CO2) + "&nh4=" + String(NH4) + "&perc_utilizacao=" + String(percentagem_utilizacao);
     //String postStr = "&api_key=" + apiKey + "&field1=" + String(t) + "&field2=" + String(h) + "&field3=" + String(percentagem_utilizacao) + "&field4=" + String(CO) + "&field5=" + String(CO2) + "&field6=" + String(Alcohol) + "&field7=" + String(NH4) + "\r\n";
 
     //client.print("POST /update HTTP/1.1\n");
-    client.print("POST /save_info HTTP/1.1\n"); //servidor django
+    client.print("POST /save_info");
+    client.print(postStr);
+    client.print(" HTTP/1.1\n"); //servidor django
     client.print("Host: ");
     client.print(server);
     client.print("\n");
     client.print("Connection: close\n");
     //client.print("THINGSPEAKAPIKEY: " + apiKey + "\n");
-    client.print("Content-Type: application/x-www-form-urlencoded\n");
-    client.print("Content-Length: ");
-    client.print(postStr.length());
-    client.print("\n\n");
-    client.print(postStr);
+    //client.print("Content-Type: application/x-www-form-urlencoded\n");
+    //client.print("Content-Length: ");
+    //client.print(postStr.length());
+    //client.print("\n\n");
+    //client.print(postStr);
 
 
     Serial.print("Temperature: ");
@@ -177,7 +185,7 @@ void loop()
   client.stop();
 
   Serial.println("Waiting...");
-
+  
   // thingspeak needs minimum 15 sec delay between updates, i've set it to 30 seconds
   delay(15000);
 }
